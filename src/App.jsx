@@ -1,5 +1,6 @@
 import './App.css'
 import { Banner } from './componentes/Banner'
+import { CardEvento } from './componentes/CardEvento'
 import { FormularioDeEvento } from './componentes/FormularioDeEvento'
 import { Tema } from './componentes/Tema'
 
@@ -41,21 +42,34 @@ function App() {
     }
   ]
 
+  function adicionarEvento(evento) {
+    eventos.push(evento)
+    console.log('eventos =>', eventos)
+  }
+
   return (
     <main>
+
       <header>
         <img src="/logo.png" alt="" />
       </header>
+
       <Banner />
-      <FormularioDeEvento />
+
+      <FormularioDeEvento temas={temas} aoSubmeter={adicionarEvento} />
+
       {temas.map(function (item) {
         return (
           <section key={item.id}>
             <Tema tema={item} />
-            <CardEvento evento={eventos[0]} />
+            {eventos.map(function (item, indice) {
+
+              return <CardEvento evento={item} key={indice} />
+            })}
           </section>
         )
       })}
+
     </main>
   )
 }
